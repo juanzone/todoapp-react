@@ -1,32 +1,28 @@
 import React, { Component } from 'react';
 import AddBar from '../add-bar/AddBar';
+import TodoListItem from './TodoListItem';
 
 class TodoList extends Component {
 
   constructor(props){
     super(props);
-    
+
     this.state = {
-      list : [
+      taskList : [
         {
-          task : "ranger chambre"
+          name : 'Ranger chambre',
+          creator: 'Juan Zone'
         },
         {
-          task : "ranger jardin"
-        },
-        {
-          task : "ranger cuisine"
-        },
+          name : 'Ranger Grenier',
+          creator: 'Philippe Zone'
+        }
       ]
     };
   }
 
-  getData(){
-    let data = this.state;
-    return data;
-  }
-
   render() {
+
     return (
       <div className="row">
         <div className="col-xs-12">
@@ -40,12 +36,12 @@ class TodoList extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td> {this.state.task} </td>
-                <td> {this.state.creator}</td>
-                <td> {this.state.date.getDate()} </td>
-                <td> <input type="checkbox" /> </td>
-              </tr>
+              {
+                this.state.taskList.map(function(taske, i){
+                  console.log(taske);
+                  return <TodoListItem key={i} tache={taske.name} creator={taske.creator} />
+                })
+              }
             </tbody>
           </table>
           <AddBar />
