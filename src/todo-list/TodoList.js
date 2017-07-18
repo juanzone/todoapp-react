@@ -5,11 +5,19 @@ class TodoList extends Component {
 
   constructor(props){
     super(props);
+    
     this.state = {
-      task : 'Sortir le chien',
-      creator : 'Juan Zone',
-      date : new Date(),
-      done : false
+      list : [
+        {
+          task : "ranger chambre"
+        },
+        {
+          task : "ranger jardin"
+        },
+        {
+          task : "ranger cuisine"
+        },
+      ]
     };
   }
 

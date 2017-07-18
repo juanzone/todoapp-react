@@ -3,6 +3,15 @@ import './AddBar.css';
 
 class Addbar extends Component {
 
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({name : e.target.value})
+  }
+
   render() {
     return (
       <div className="row equal">
@@ -11,12 +20,13 @@ class Addbar extends Component {
             <label>
               Task:
             </label>
-            <input className="form-control" type="text" />
+            <input onChange={this.handleChange} className="form-control" type="text" />
           </form>
         </div>
         <div className="col-xs-3">
           <button className="btn btn-primary"> Ajouter </button>
         </div>
+        <p> {this.state.name} </p>
       </div>
     );
   }
