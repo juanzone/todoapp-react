@@ -1,0 +1,14 @@
+.equal{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
+
+.col-xs-3{
+  padding-top: 25px;
+}
+
+.btn{
+  cursor: pointer;
+}
