@@ -7,7 +7,8 @@ class TodoListItem extends Component {
       <tr>
       <td>{this.props.tache}</td>
       <td>{this.props.creator}</td>
-      <td> button </td>
+      <td> {this.props.date} </td>
+      <td> <button className="btn btn-primary">Tache remplie</button> </td>
       </tr>
     );
   }

@@ -11,14 +11,24 @@ class TodoList extends Component {
       taskList : [
         {
           name : 'Ranger chambre',
-          creator: 'Juan Zone'
+          creator: 'Juan Zone',
+          date : new Date(2017,11,17).toDateString()
         },
         {
           name : 'Ranger Grenier',
-          creator: 'Philippe Zone'
+          creator: 'Philippe Zone',
+          date : new Date(2017,1,17).toDateString()
         }
       ]
     };
+    this.getTask = this.getTask.bind(this);
+  }
+
+  getTask(juan){
+    let newTaskList = this.state.taskList;
+    newTaskList.push(juan);
+    console.log(newTaskList);
+    this.setState({taskList : newTaskList});
   }
 
   render() {
@@ -39,12 +49,12 @@ class TodoList extends Component {
               {
                 this.state.taskList.map(function(taske, i){
                   console.log(taske);
-                  return <TodoListItem key={i} tache={taske.name} creator={taske.creator} />
+                  return <TodoListItem key={i} tache={taske.name} creator={taske.creator} date={taske.date} />
                 })
               }
             </tbody>
           </table>
-          <AddBar />
+          <AddBar newtask={this.getTask} />
         </div>
       </div>
     );

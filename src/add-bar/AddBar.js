@@ -5,12 +5,26 @@ class Addbar extends Component {
 
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = {name : ''};
+    this.state = {newTask : ""};
   }
 
-  handleChange(e) {
-    this.setState({name : e.target.value})
+
+  handleChange(e){
+    let task = {};
+    task = {
+      name : e.target.value,
+      creator : "Juan Zone",
+      date : new Date().toDateString()
+    };
+
+    this.setState({newTask : task })
+  }
+
+  handleClick(e) {
+    this.props.newtask(this.state.newTask);
+
   }
 
   render() {
@@ -21,13 +35,12 @@ class Addbar extends Component {
             <label>
               Task:
             </label>
-            <input onChange={this.handleChange} className="form-control" type="text" />
+            <input className="form-control" onChange={this.handleChange} type="text" />
           </form>
         </div>
         <div className="col-xs-3">
-          <button className="btn btn-primary"> Ajouter </button>
+          <button className="btn btn-primary" onClick={this.handleClick}> Ajouter </button>
         </div>
-        <p> {this.state.name} </p>
       </div>
     );
   }
