@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import TodoList from '../todo-list/TodoList';
+import CheckedList from '../checked-list/CheckedList';
 
 import './App.css';
 
@@ -12,7 +13,10 @@ class App extends Component {
         <div className="container">
           <div className="col-xs-12">
             <h1 className="text-left"> Ma todo liste </h1>
-            <TodoList />
+            <div className="row">
+              <TodoList />
+              <CheckedList />
+            </div>
           </div>
         </div>
       </div>
