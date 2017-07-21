@@ -38,14 +38,21 @@ class TodoList extends Component {
     let newTaskList = this.state.taskList;
     newTaskList[id].check = checker;
     this.setState({taskList : newTaskList}, function(){
-      console.log(this.state.taskList[id].check)
-    })
+      this.state.taskList.map((task, i) => {
+          if(task.check === true){
+            let newTaskList = this.state.taskList;
+            newTaskList.splice(i, 1);
+            this.setState({taskList : newTaskList});
+          }
+      })
+    });
   }
 
   render() {
 
     return (
-        <div className="col-xs-6">
+      <div className="row">
+        <div className="col-xs-12">
           <table className="table table-striped">
             <thead>
               <tr>
@@ -65,6 +72,7 @@ class TodoList extends Component {
           </table>
           <AddBar newtask={this.getTask} />
         </div>
+      </div>
     );
   }
 }

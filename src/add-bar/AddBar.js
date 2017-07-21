@@ -19,23 +19,26 @@ class Addbar extends Component {
       date : new Date().toDateString()
     };
 
-    this.setState({newTask : task })
+    this.setState({newTask : task });
   }
 
   handleClick(e) {
     this.props.newtask(this.state.newTask);
+    console.log(this.refs.inputTest.value)
+    this.refs.inputTest.value = "";
+    console.log(this.refs.inputTest.value)
 
   }
 
   render() {
     return (
       <div className="row equal">
-        <div className="col-xs-6">
+        <div className="col-xs-2">
           <form className="inline-form">
             <label>
               Task:
             </label>
-            <input className="form-control" onChange={this.handleChange} type="text" />
+            <input className="form-control" onChange={this.handleChange} ref="inputTest" type="text" />
           </form>
         </div>
         <div className="col-xs-3">

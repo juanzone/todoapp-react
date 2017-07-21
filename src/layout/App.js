@@ -13,10 +13,8 @@ class App extends Component {
         <div className="container">
           <div className="col-xs-12">
             <h1 className="text-left"> Ma todo liste </h1>
-            <div className="row">
               <TodoList />
               <CheckedList />
-            </div>
           </div>
         </div>
       </div>
