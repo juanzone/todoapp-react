@@ -64,9 +64,9 @@ class TodoList extends Component {
             </thead>
             <tbody>
               {
-                this.state.taskList.map( (taske, i) => {
-                  return <TodoListItem checker={this.getCheck} key={i} id={i} tache={taske.name} creator={taske.creator} date={taske.date} check={taske.check} />
-                })
+                this.state.taskList.map( (taske, i) =>
+                  <TodoListItem checker={this.getCheck} key={i} id={i} tache={taske.name} creator={taske.creator} date={taske.date} check={taske.check} />
+                )
               }
             </tbody>
           </table>
