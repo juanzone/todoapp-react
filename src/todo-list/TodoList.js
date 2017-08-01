@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import AddBar from '../add-bar/AddBar';
 import TodoListItem from './TodoListItem';
 
@@ -9,22 +10,22 @@ class TodoList extends Component {
     this.getCheck = this.getCheck.bind(this);
     this.getTask = this.getTask.bind(this);
 
-    this.state = {
-      taskList : [
-        {
-          name : 'Ranger chambre',
-          creator: 'Juan Zone',
-          date : new Date(2017,11,17).toDateString(),
-          check : false
-        },
-        {
-          name : 'Ranger Grenier',
-          creator: 'Philippe Zone',
-          date : new Date(2017,1,17).toDateString(),
-          check : false,
-        }
-      ]
-    };
+    // this.state = {
+    //   taskList : [
+    //     {
+    //       name : 'Ranger chambre',
+    //       creator: 'Juan Zone',
+    //       date : new Date(2017,11,17).toDateString(),
+    //       check : false
+    //     },
+    //     {
+    //       name : 'Ranger Grenier',
+    //       creator: 'Philippe Zone',
+    //       date : new Date(2017,1,17).toDateString(),
+    //       check : false,
+    //     }
+    //   ]
+    // };
   }
 
   getTask(newtask){
@@ -64,7 +65,7 @@ class TodoList extends Component {
             </thead>
             <tbody>
               {
-                this.state.taskList.map( (taske, i) =>
+                this.props.taskList.map( (taske, i) =>
                   <TodoListItem checker={this.getCheck} key={i} id={i} tache={taske.name} creator={taske.creator} date={taske.date} check={taske.check} />
                 )
               }
@@ -77,4 +78,10 @@ class TodoList extends Component {
   }
 }
 
-export default TodoList;
+function mapStateToProps(state){
+  return{
+    taskList : state.tasks
+  }
+}
+
+export default connect(mapStateToProps)(TodoList);
