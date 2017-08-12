@@ -2,69 +2,63 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AddBar from '../add-bar/AddBar';
 import TodoListItem from './TodoListItem';
+import { getTasks } from '../actions/index';
+import { bindActionCreators} from 'redux'
 
 class TodoList extends Component {
 
-  constructor(props){
-    super(props);
-    this.getCheck = this.getCheck.bind(this);
-    this.getTask = this.getTask.bind(this);
+
+  componentWillMount(){
+    this.props.getTasks();
   }
 
-  getTask(newtask){
-    let newTaskList = this.state.taskList;
-    newTaskList.push(newtask);
-    console.log(newTaskList);
-    this.setState({taskList : newTaskList});
-  }
-
-  getCheck(checker, id){
-    let newTaskList = this.state.taskList;
-    newTaskList[id].check = checker;
-    this.setState({taskList : newTaskList}, function(){
-      this.state.taskList.map((task, i) => {
-          if(task.check === true){
-            let newTaskList = this.state.taskList;
-            newTaskList.splice(i, 1);
-            this.setState({taskList : newTaskList});
-          }
-      })
-    });
+  renderTask(){
+    const tasklist = this.props.tasklist;
+    if(tasklist){
+      return (
+          <div className="col-xs-12">
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <td> Task </td>
+                  <td> Creator </td>
+                  <td> Date </td>
+                  <td> Done </td>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  this.props.taskList.map( (taske, i) =>
+                    <TodoListItem checker={this.getCheck} onClick={() => this.props.selectTask(taske)} key={i} id={i} tache={taske.title} creator={taske.userId} date={taske.id} check={taske.completed} />
+                  )
+                }
+              </tbody>
+            </table>
+            <AddBar newtask={this.getTask} />
+          </div>
+      );
+    }else{
+      return <h1> Pas de choses à faire! </h1>
+    }
   }
 
   render() {
-
-    return (
+    return(
       <div className="row">
-        <div className="col-xs-12">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <td> Task </td>
-                <td> Creator </td>
-                <td> Date </td>
-                <td> Done </td>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                this.props.taskList.map( (taske, i) =>
-                  <TodoListItem checker={this.getCheck} key={i} id={i} tache={taske.name} creator={taske.creator} date={taske.date} check={taske.check} />
-                )
-              }
-            </tbody>
-          </table>
-          <AddBar newtask={this.getTask} />
-        </div>
+        {this.renderTask()}
       </div>
-    );
+    )
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state, ownProps){
   return{
     taskList : state.tasks
   }
 }
 
-export default connect(mapStateToProps)(TodoList);
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({getTasks}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
