@@ -2,14 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AddBar from '../add-bar/AddBar';
 import TodoListItem from './TodoListItem';
-import { getTasks } from '../actions/index';
+import { getTasks, removeTask, addTask } from '../actions/index';
 import { bindActionCreators} from 'redux'
 
 class TodoList extends Component {
 
+  constructor(props){
+    super(props);
+    this.removeTask = this.removeTask.bind(this);
+  }
 
   componentWillMount(){
     this.props.getTasks();
+  }
+
+  removeTask(id){
+    this.props.removeTask(id)
   }
 
   renderTask(){
@@ -20,16 +28,16 @@ class TodoList extends Component {
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <td> Task </td>
-                  <td> Creator </td>
-                  <td> Date </td>
-                  <td> Done </td>
+                  <th> Task </th>
+                  <th> Creator </th>
+                  <th> Date </th>
+                  <th> Done </th>
                 </tr>
               </thead>
               <tbody>
                 {
                   this.props.tasklist.map( (taske, i) =>
-                    <TodoListItem checker={this.getCheck} onClick={() => this.props.selectTask(taske)} key={i} id={i} tache={taske.title} creator={taske.userId} date={taske.id} check={taske.completed} />
+                    <TodoListItem key={i} id={taske._id} tache={taske.task} creator={taske.author} date={taske.date} check={taske.completed} removeTask={this.removeTask} />
                   )
                 }
               </tbody>
@@ -57,7 +65,7 @@ function mapStateToProps(state, ownProps){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({getTasks}, dispatch)
+  return bindActionCreators({getTasks, addTask, removeTask}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
