@@ -11,12 +11,12 @@ export function taskSelected(task){
 
 export const TASK_LIST = "TASK_LIST"
 export const ERROR_TASK_LIST = "ERROR_TASK_LIST"
+let flag = false;
 
 export function getTasks(){
   return function(dispatch){
     axios.get('https://jsonplaceholder.typicode.com/todos')
     .then(function (response) {
-      console.log(response.data);
       dispatch({type: TASK_LIST, payload: response.data})
     })
     .catch(function (error) {

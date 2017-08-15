@@ -28,13 +28,12 @@ class TodoList extends Component {
               </thead>
               <tbody>
                 {
-                  this.props.taskList.map( (taske, i) =>
+                  this.props.tasklist.map( (taske, i) =>
                     <TodoListItem checker={this.getCheck} onClick={() => this.props.selectTask(taske)} key={i} id={i} tache={taske.title} creator={taske.userId} date={taske.id} check={taske.completed} />
                   )
                 }
               </tbody>
             </table>
-            <AddBar newtask={this.getTask} />
           </div>
       );
     }else{
@@ -53,7 +52,7 @@ class TodoList extends Component {
 
 function mapStateToProps(state, ownProps){
   return{
-    taskList : state.tasks
+    tasklist : state.tasks
   }
 }
 
