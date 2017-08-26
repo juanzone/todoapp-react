@@ -8,7 +8,13 @@ export default function(state = null, action){
     case TASK_ADD:
       return state
     case TASK_REMOVE:
-      return state
+      return state.filter((task) => { // Renvoie le tableau filtré.
+        if(task._id === action.payload){
+          return false // Quand ca renvoie false, ca ne l'ajoute pas au tableau
+        }else{
+          return true // Ajoute l'element au tableau
+        }
+      })
     default:
       return state;
   }

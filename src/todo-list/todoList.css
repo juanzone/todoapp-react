@@ -1,0 +1,13 @@
+.taskAnimation-enter{
+  opacity: 0.01;
+}
+
+.taskAnimation-enter.taskAnimation-appear-active{
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
+.taskAnimation-leave.taskAnimation-leave-active{
+  transform: translate(-1000px);
+  transition: transform 700ms ease-in;
+}

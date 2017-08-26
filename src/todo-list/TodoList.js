@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import AddBar from '../add-bar/AddBar';
+//import AddBar from '../add-bar/AddBar';
 import TodoListItem from './TodoListItem';
 import { getTasks, removeTask, addTask } from '../actions/index';
-import { bindActionCreators} from 'redux'
+import { bindActionCreators} from 'redux';
+import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
+import './todoList.css';
 
 class TodoList extends Component {
 
@@ -23,37 +26,38 @@ class TodoList extends Component {
   renderTask(){
     const tasklist = this.props.tasklist;
     if(tasklist){
-      return (
-          <div className="col-xs-12">
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th> Task </th>
-                  <th> Creator </th>
-                  <th> Date </th>
-                  <th> Done </th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  this.props.tasklist.map( (taske, i) =>
-                    <TodoListItem key={i} id={taske._id} tache={taske.task} creator={taske.author} date={taske.date} check={taske.completed} removeTask={this.removeTask} />
-                  )
-                }
-              </tbody>
-            </table>
-          </div>
-      );
-    }else{
-      return <h1> Pas de choses à faire! </h1>
+      return this.props.tasklist.map( (taske, i) => {
+        return <TodoListItem key={i} id={taske._id} tache={taske.task} creator={taske.author} date={taske.date} check={taske.completed} removeTask={this.removeTask} />
+      })
     }
+    // else {
+    //   return <h1> Pas de choses à faire! </h1>
+    // }
   }
 
   render() {
     return(
       <div className="row">
+      <div className="col-xs-12">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th className="juan"> Task </th>
+              <th> Creator </th>
+              <th> Date </th>
+              <th> Done </th>
+            </tr>
+          </thead>
+          <ReactCSSTransitionGroup
+          component="tbody"
+          transitionName="taskAnimation"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={700}>
         {this.renderTask()}
-      </div>
+        </ReactCSSTransitionGroup>
+      </table>
+    </div>
+    </div>
     )
   }
 }

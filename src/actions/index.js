@@ -39,7 +39,7 @@ export function removeTask(id){
   return function(dispatch){
     axios.delete('http://localhost:8080/api/task/' + id)
     .then(function (response) {
-      dispatch({type: TASK_REMOVE, payload: response.data.liste})
+      dispatch({type: TASK_REMOVE, payload: id}) // une fois l'élement delete dans le back, on envoie l'id pour le supprimer dans le state niveau front.
     })
     .catch(function (error) {
       dispatch({type: ERROR_TASK_REMOVE, payload: error})
